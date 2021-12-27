@@ -1,0 +1,84 @@
+#include <string.h>
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "nvs_flash.h"
+#include "sdkconfig.h"
+#include "esp_system.h"
+#include "esp_log.h"
+#include "esp_event.h"
+
+// local includes
+#include "led_blink.h"
+#include "wifi.h"
+#include "http.h"
+
+ESP_EVENT_DEFINE_BASE(APP_EVENTS);
+
+
+
+//#include "DHT22.h"
+// void dht_task(void *pvParameter)
+// {
+//     vTaskDelay(10000 / portTICK_PERIOD_MS);
+//     UBaseType_t uxHighWaterMark;
+
+//     uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+//     printf( "Stack %d\n", uxHighWaterMark);
+    
+//     int pin = 22;
+//     gpio_pad_select_gpio(pin);
+//     gpio_set_direction(pin, GPIO_MODE_INPUT);
+
+
+//     setDHTgpio(pin);
+
+//     while(1) {
+//         printf("=== Reading DHT ===\n" );
+//         int ret = readDHT();
+//         errorHandler(ret);
+//         printf( "Hum %.1f\n", getHumidity() );
+//         printf( "Tmp %.1f\n", getTemperature() );
+
+//         uxHighWaterMark = uxTaskGetStackHighWaterMark(NULL);
+//         printf( "Stack %d\n", uxHighWaterMark);
+        
+//         vTaskDelay(3000 / portTICK_PERIOD_MS);
+//     }
+// }
+
+
+
+
+
+
+
+void app_main()
+{
+    vTaskDelay(10000 / portTICK_PERIOD_MS);
+
+
+    // initialize NVS
+    ESP_LOGI("MAIN", "NVS init");
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+      ESP_ERROR_CHECK(nvs_flash_erase());
+      ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    // create a system (default) event loop 
+    ESP_LOGI("MAIN", "event loop init");
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+
+    // component initializations
+    ESP_LOGI("MAIN", "application init");
+    led_initialize();
+    http_initialize();
+    wifi_initialize();  // should be the last
+}
+
+
+
+
+

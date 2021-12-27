@@ -1,0 +1,22 @@
+menu "Application Configuration"
+
+    config APP_WIFI_SSID
+        string "WiFi SSID name"
+        help
+            Defines the name of WiFi network to connect to
+
+    config APP_WIFI_PASSWORD
+        string "WiFi password"
+        help
+            Defines the password for the WiFi connection
+
+    config APP_MDNS_HOSTNAME
+        string "mDNS hostname"
+        help
+            Defines the hostname in the mDNS system
+
+    config APP_MDNS_DESCRIPTION
+        string "mDNS friendly name"
+        help
+            Defines a friendly name in the mDNS system
+endmenu
