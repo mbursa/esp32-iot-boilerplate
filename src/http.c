@@ -13,7 +13,7 @@
 static httpd_handle_t http_server = NULL;
 
 
-static const char *TAG_HTTP = "HTTP";
+static const char *LOG_TAG = "HTTP";
 
 static esp_err_t http_request_status_get(httpd_req_t *req)
 {
@@ -28,7 +28,7 @@ static esp_err_t http_request_status_get(httpd_req_t *req)
     cJSON_AddNumberToObject(json, "humi", esp_random() % 20);
 
     // get json string representation, send it as http response, free memory
-    ESP_LOGI(TAG_HTTP, "Sending http response to status request");
+    ESP_LOGI(LOG_TAG, "Sending http response to status request");
     json_string = cJSON_Print(json);
     httpd_resp_set_type(req, "application/json");
     httpd_resp_sendstr(req, json_string);
@@ -57,12 +57,12 @@ static esp_err_t http_server_start()
         .user_ctx  = NULL
     };
 
-    ESP_LOGI(TAG_HTTP, "starting server");
+    ESP_LOGI(LOG_TAG, "starting server");
     if (httpd_start(&http_server, &config) == ESP_OK) {
         httpd_register_uri_handler(http_server, &uri_status_get);
-        ESP_LOGI(TAG_HTTP, "server started");
+        ESP_LOGI(LOG_TAG, "server started");
     } else {
-        ESP_LOGE(TAG_HTTP, "error starting server!");
+        ESP_LOGE(LOG_TAG, "error starting server!");
         http_server = NULL;
         return ESP_FAIL;
     }
@@ -78,10 +78,10 @@ static esp_err_t http_server_stop()
     assert(http_server);
     esp_err_t res;
 
-    ESP_LOGI(TAG_HTTP, "stopping server");
+    ESP_LOGI(LOG_TAG, "stopping server");
     res = httpd_stop(http_server);
     http_server = NULL;
-    ESP_LOGI(TAG_HTTP, "server stopped");
+    ESP_LOGI(LOG_TAG, "server stopped");
 
     return res;
 }
@@ -101,7 +101,7 @@ static void http_app_event_handler(void* handler_args, esp_event_base_t event_ba
             http_server_stop();
             break;
         default:
-            ESP_LOGI(TAG_HTTP, "http event id:%d", event_id);
+            ESP_LOGI(LOG_TAG, "http event id:%d", event_id);
     }
 }
 

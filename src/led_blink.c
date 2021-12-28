@@ -7,7 +7,7 @@
 
 
 
-static const char *TAG_HTTP = "HTTP";
+static const char *LOG_TAG = "LED";
 
 #define BLINK_GPIO 23
 

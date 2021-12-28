@@ -22,8 +22,6 @@
 static const char *LOG_TAG = "WIFI";
 
 
-//static int s_retry_num = 0;
-
 static void wifi_event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
     if (event_base == WIFI_EVENT) {
