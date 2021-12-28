@@ -9,7 +9,7 @@
 #include "esp_event.h"
 
 // include application's components
-#include "led_blink.h"
+#include "led.h"
 #include "mdns.h"
 #include "wifi.h"
 #include "http.h"
