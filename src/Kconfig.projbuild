@@ -8,7 +8,13 @@ menu "Application Configuration"
     config APP_WIFI_PASSWORD
         string "WiFi password"
         help
-            Defines the password for the WiFi connection
+            Defines a password for the WiFi connection
+
+    config APP_WIFI_RECONNECT_INTERVAL
+        int "WiFi reconnect intervals (s)"
+        default 15
+        help
+            Defines an interval in seconds for reconnect attempts 
 
     config APP_MDNS_HOSTNAME
         string "mDNS hostname"
