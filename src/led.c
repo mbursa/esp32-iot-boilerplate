@@ -1,9 +1,9 @@
 #include <string.h>
-#include <string.h>
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
+#include "esp_log.h"
 
 
 
@@ -42,6 +42,7 @@ static void led_blink_task(void *pvParameter)
 void led_initialize()
 {
     // create task for periodic LED blinking
+    ESP_LOGI(LOG_TAG, "create task");
     xTaskCreate(&led_blink_task, "led_blink_task", configMINIMAL_STACK_SIZE, NULL, 5, NULL);
 }
 

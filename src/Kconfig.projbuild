@@ -11,7 +11,7 @@ menu "Application Configuration"
             Defines a password for the WiFi connection
 
     config APP_WIFI_RECONNECT_INTERVAL
-        int "WiFi reconnect intervals (s)"
+        int "WiFi reconnect intervals"
         default 15
         help
             Defines an interval in seconds for reconnect attempts 
@@ -25,4 +25,11 @@ menu "Application Configuration"
         string "mDNS friendly name"
         help
             Defines a friendly name in the mDNS system
+
+    config APP_SENSOR_READING_INTERVAL
+        int "Sensor reading interval"
+        default 15
+        help
+            Defines an interval in seconds for reading the sensor data
+           
 endmenu

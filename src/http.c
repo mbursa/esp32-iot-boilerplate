@@ -8,6 +8,7 @@
 #include "cJSON.h"
 
 #include "events.h"
+#include "sensor.h"
 
 // handle to the HTTP server object
 static httpd_handle_t http_server = NULL;
@@ -23,9 +24,12 @@ static esp_err_t http_request_status_get(httpd_req_t *req)
     // create json object
     json = cJSON_CreateObject();
 
+    // get sensor readings
+    sensor_readings data = sensor_last_value();
+
     // populate data to json object
-    cJSON_AddNumberToObject(json, "temp", esp_random() % 20);
-    cJSON_AddNumberToObject(json, "humi", esp_random() % 20);
+    cJSON_AddNumberToObject(json, "temp", data.temp);
+    cJSON_AddNumberToObject(json, "humi", data.humi);
 
     // get json string representation, send it as http response, free memory
     ESP_LOGI(LOG_TAG, "Sending http response to status request");

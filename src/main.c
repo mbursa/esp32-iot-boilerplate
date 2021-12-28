@@ -9,10 +9,11 @@
 #include "esp_event.h"
 
 // include application's components
+#include "http.h"
 #include "led.h"
 #include "mdns.h"
+#include "sensor.h"
 #include "wifi.h"
-#include "http.h"
 
 // define aplication's own event name space
 ESP_EVENT_DEFINE_BASE(APP_EVENTS);
@@ -44,6 +45,7 @@ void app_main()
     // application initializations
     ESP_LOGI("MAIN", "application init");
     led_initialize();
+    sensor_initialize();
     mdns_initialize();
     http_initialize();
     wifi_initialize();  // should be the last
