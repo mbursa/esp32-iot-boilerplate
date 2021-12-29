@@ -65,6 +65,36 @@ $ pio run -t upload
 $ pio device monitor
 ```
 
+After you open the serial monitor console, you should see an output simillar to the following:
+
+```
+I (0) cpu_start: Starting scheduler on APP CPU.
+I (20499) MAIN: NVS init
+I (20519) MAIN: event loop init
+I (20519) MAIN: netif init
+I (20519) MAIN: application init
+I (20519) LED: create task
+I (20519) SENSOR: create task
+I (20529) SENSOR: reading sensor data
+I (20529) MDNS: setting hostname: 
+I (20529) SENSOR: updating the values
+I (20539) MDNS: mDNS initialized
+I (20539) WIFI: wifi initialization
+I (20549) WIFI: wifi configuration
+I (20659) WIFI: wifi event registrations
+I (20870) WIFI: connected
+I (22520) WIFI: got ip: XX.XX.XX.XX
+I (22520) HTTP: starting server
+I (22530) HTTP: server started
+I (35540) SENSOR: reading sensor data
+I (35540) SENSOR: updating the values
+```
+
+Than you can navigate to `http://XX.XX.XX.XX/status` to see the latest sensor readings in JSON format.
+
+If you connect a LED diode (use a suitable resistor) to GPIO pin 23 (hard-coded in `src/led.c`) you should see it blinking at 1s intervals.
+
+
 ## Dependencies
 
 The project is based on  [PlatformIO](https://platformio.org/ "PlatformIO") and you need to have either PlatformIO IDE or PlatformIO CLI to build it. All necessary components (such as ESP-IDF SDK) will be loaded by PlatformIO. The project uses no other libraries.
